@@ -29,8 +29,29 @@ class _QuizPageState extends State<QuizPage> {
     
 List<Icon> scoreKeeper = [];
 
+void checkAnswer (bool userPickedAnswer){
+
+
+  bool correctanswer = questionBank[questionNumber].questionAnswer;
+
+ setState(() {
+if (userPickedAnswer == correctanswer){
+scoreKeeper.add(Icon(Icons.check, color: Colors.green,));
+
+}else{
+scoreKeeper.add(Icon(Icons.close, color: Colors.red,));
+}
+
+
+               
+                  questionNumber++;
+                });
+}
 
 List<Question> questionBank = [
+  Question(q: 'you are wrong', a: false),
+  Question(q: 'you are right', a: true),
+  Question(q: 'you are wrong', a: false),
   Question(q: 'you are wrong', a: false),
   Question(q: 'you are right', a: true),
   Question(q: 'you are wrong', a: false),
@@ -78,21 +99,8 @@ int questionNumber=0;
                 ),
               ),
               onPressed: () {
+checkAnswer(true);
 
-bool correctanswer = questionBank[questionNumber].questionAnswer;
-
-
-if (correctanswer ==true){
-print('user got it right');
-
-}else{
-  print('user got it wrong');
-}
-
-
-                setState(() {
-                  questionNumber++;
-                });
                 print(questionNumber);
               },
             ),
@@ -113,19 +121,7 @@ print('user got it right');
                 ),
               ),
               onPressed: () {
-                bool correctanswer = questionBank[questionNumber].questionAnswer;
-
-
-if (correctanswer ==false){
-print('user got it right');
-
-}else{
-  print('user got it wrong');}
-
-               setState(() {
-                 questionNumber++; 
-               
-                });
+                checkAnswer(false);
                 print(questionNumber);
               },
             ),
